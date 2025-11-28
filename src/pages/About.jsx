@@ -36,6 +36,14 @@ function About() {
     }
   }
 
+  const handleAIClick = () => {
+    // For mobile - tap to show cat immediately
+    setShowHoverCat(true)
+    setTimeout(() => {
+      setShowHoverCat(false)
+    }, 5000)
+  }
+
   useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) {
@@ -76,7 +84,8 @@ function About() {
             <span
               onMouseEnter={handleHoverStart}
               onMouseLeave={handleHoverEnd}
-              style={{ cursor: 'default' }}
+              onClick={handleAIClick}
+              style={{ cursor: 'pointer', userSelect: 'none' }}
             >
               code with AI
             </span>
