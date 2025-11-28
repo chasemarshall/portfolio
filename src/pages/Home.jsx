@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import MagneticText from '../components/MagneticText'
+import ScrambleText from '../components/ScrambleText'
+import InteractiveParticles from '../components/InteractiveParticles'
 
 function Home() {
   const menuItems = [
@@ -40,48 +43,22 @@ function Home() {
         animate="show"
       >
         {menuItems.map((menuItem) => (
-          <motion.div key={menuItem.id}>
+          <motion.div key={menuItem.id} variants={item}>
             <Link
               to={menuItem.path}
               className="menu-item"
             >
-              <motion.span
-                variants={item}
-                whileHover={{
-                  scale: 1.05,
-                  textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5)",
-                  transition: { duration: 0.3 }
-                }}
-              >
-                {menuItem.label}
-              </motion.span>
+              <MagneticText>
+                <ScrambleText>
+                  {menuItem.label}
+                </ScrambleText>
+              </MagneticText>
             </Link>
           </motion.div>
         ))}
       </motion.nav>
 
-      {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="particle"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            scale: Math.random() * 0.5 + 0.5
-          }}
-          animate={{
-            y: [null, Math.random() * window.innerHeight],
-            x: [null, Math.random() * window.innerWidth],
-          }}
-          transition={{
-            duration: Math.random() * 20 + 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "linear"
-          }}
-        />
-      ))}
+      <InteractiveParticles />
     </>
   )
 }
