@@ -203,6 +203,18 @@
   text-align: center;
 }
 
+.easter-egg-cat {
+  margin: 2rem 0;
+}
+
+.easter-egg-cat pre {
+  font-family: monospace;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
 /* Custom Cursor */
 .custom-cursor {
   position: fixed;
