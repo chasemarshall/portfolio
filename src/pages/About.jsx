@@ -22,7 +22,7 @@ function About() {
       >
         <h1 className="page-title">ABOUT</h1>
         <div className="page-text">
-          <p>Coming soon...</p>
+          <p>I'm Chase and code with AI</p>
         </div>
       </motion.div>
     </motion.div>
