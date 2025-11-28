@@ -1,29 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 function MobileRipple() {
   const [ripples, setRipples] = useState([])
+  const [isMobile, setIsMobile] = useState(false)
 
-  const handleTouch = (e) => {
-    const touch = e.touches[0]
-    const newRipple = {
-      id: Date.now(),
-      x: touch.clientX,
-      y: touch.clientY
+  useEffect(() => {
+    // Check if mobile/touch device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    const handleTouch = (e) => {
+      if (!isMobile) return
+
+      const touch = e.touches[0]
+      const newRipple = {
+        id: Date.now() + Math.random(),
+        x: touch.clientX,
+        y: touch.clientY
+      }
+
+      setRipples(prev => [...prev, newRipple])
+
+      setTimeout(() => {
+        setRipples(prev => prev.filter(r => r.id !== newRipple.id))
+      }, 1000)
     }
 
-    setRipples(prev => [...prev, newRipple])
+    document.addEventListener('touchstart', handleTouch)
 
-    setTimeout(() => {
-      setRipples(prev => prev.filter(r => r.id !== newRipple.id))
-    }, 1000)
-  }
+    return () => {
+      document.removeEventListener('touchstart', handleTouch)
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [isMobile])
+
+  if (!isMobile) return null
 
   return (
-    <div
-      className="mobile-ripple-container"
-      onTouchStart={handleTouch}
-    >
+    <div className="mobile-ripple-container">
       <AnimatePresence>
         {ripples.map(ripple => (
           <motion.div
