@@ -36,19 +36,8 @@ function About() {
     }
   }
 
-  const handleAIClick = (e) => {
-    // Prevent any default behavior
-    e.preventDefault()
-    // For mobile - tap to show cat immediately
-    setShowHoverCat(true)
-    setTimeout(() => {
-      setShowHoverCat(false)
-    }, 5000)
-  }
-
-  const handleAITouch = (e) => {
-    // Handle touch specifically for mobile
-    e.preventDefault()
+  const handleAIClick = () => {
+    // Simple click/tap handler - works on both desktop and mobile
     setShowHoverCat(true)
     setTimeout(() => {
       setShowHoverCat(false)
@@ -96,8 +85,11 @@ function About() {
               onMouseEnter={handleHoverStart}
               onMouseLeave={handleHoverEnd}
               onClick={handleAIClick}
-              onTouchEnd={handleAITouch}
-              style={{ cursor: 'pointer', userSelect: 'none', WebkitTapHighlightColor: 'transparent' }}
+              style={{
+                cursor: 'pointer',
+                userSelect: 'none',
+                touchAction: 'manipulation'
+              }}
             >
               code with AI
             </span>
