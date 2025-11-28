@@ -19,8 +19,8 @@
 
 .menu-item {
   font-size: 5rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: normal;
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
@@ -87,8 +87,8 @@
   top: 2rem;
   left: 2rem;
   font-size: 1.5rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: normal;
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
@@ -112,15 +112,15 @@
 
 .page-title {
   font-size: 4rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
+  font-weight: 700;
+  letter-spacing: normal;
   color: #ffffff;
   margin-bottom: 2rem;
 }
 
 .page-text {
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.8;
   max-width: 800px;
@@ -130,41 +130,24 @@
   margin-bottom: 1.5rem;
 }
 
-/* Projects Grid */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+/* Projects List */
+.projects-list {
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   width: 100%;
   max-width: 1000px;
   padding: 2rem 0;
 }
 
-.project-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 3rem 2rem;
-  text-decoration: none;
+.project-link {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: normal;
   color: #ffffff;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-}
-
-.project-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.project-name {
-  font-size: 2.5rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  margin: 0;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
@@ -198,18 +181,7 @@
     padding: 2rem;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem 0;
-  }
-
-  .project-card {
-    min-height: 150px;
-    padding: 2rem 1.5rem;
-  }
-
-  .project-name {
+  .project-link {
     font-size: 2rem;
   }
 }

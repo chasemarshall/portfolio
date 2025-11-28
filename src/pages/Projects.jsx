@@ -22,21 +22,22 @@ function Projects() {
       >
         <h1 className="page-title">PROJECTS</h1>
 
-        <div className="projects-grid">
+        <div className="projects-list">
           <motion.a
             href="https://github.com/chasemarshall/solace"
             target="_blank"
             rel="noopener noreferrer"
-            className="project-card"
+            className="project-link"
             whileHover={{
-              scale: 1.02,
+              scale: 1.05,
+              textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5)",
               transition: { duration: 0.3 }
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            <h2 className="project-name">solace.</h2>
+            solace.
           </motion.a>
         </div>
       </motion.div>
