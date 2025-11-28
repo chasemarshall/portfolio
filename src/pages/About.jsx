@@ -6,7 +6,9 @@ function About() {
   const [clickCount, setClickCount] = useState(0)
   const [showClickCat, setShowClickCat] = useState(false)
   const [showHoverCat, setShowHoverCat] = useState(false)
+  const [showRai, setShowRai] = useState(false)
   const hoverTimeoutRef = useRef(null)
+  const raiTimeoutRef = useRef(null)
 
   const handleChaseClick = () => {
     const newCount = clickCount + 1
@@ -44,10 +46,21 @@ function About() {
     }, 5000)
   }
 
+  const handleRaiHoverStart = () => {
+    setShowRai(true)
+  }
+
+  const handleRaiHoverEnd = () => {
+    setShowRai(false)
+  }
+
   useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current)
+      }
+      if (raiTimeoutRef.current) {
+        clearTimeout(raiTimeoutRef.current)
       }
     }
   }, [])
@@ -76,9 +89,31 @@ function About() {
             I'm{' '}
             <span
               onClick={handleChaseClick}
-              style={{ cursor: 'pointer', userSelect: 'none' }}
+              onMouseEnter={handleRaiHoverStart}
+              onMouseLeave={handleRaiHoverEnd}
+              style={{ cursor: 'pointer', userSelect: 'none', position: 'relative' }}
             >
               Chase
+              <AnimatePresence>
+                {showRai && (
+                  <motion.span
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      position: 'absolute',
+                      left: '110%',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      whiteSpace: 'nowrap',
+                      fontSize: '0.9em'
+                    }}
+                  >
+                    💕 rai
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </span>
             {' '}and{' '}
             <span
@@ -100,36 +135,54 @@ function About() {
           {showClickCat && (
             <motion.div
               className="easter-egg-cat"
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               <pre>{`
    /\\_/\\
-  ( ^.^ ) ~meow~
+  ( ^.^ )
    > ^ <
   /|   |\\
  (_|   |_)
               `}</pre>
+              <motion.div
+                className="cat-text"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                ~meow~
+              </motion.div>
             </motion.div>
           )}
 
           {showHoverCat && (
             <motion.div
               className="easter-egg-cat"
-              initial={{ opacity: 0, x: -50, rotate: -10 }}
-              animate={{ opacity: 1, x: 0, rotate: 0 }}
-              exit={{ opacity: 0, x: 50, rotate: 10 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               <pre>{`
-    /\\_/\\
-   ( o.o )
-    > v <  ~purr~
-   /|   |\\
-  (_|   |_)
+   /\\_/\\
+  ( o.o )
+   > v <
+  /|   |\\
+ (_|   |_)
               `}</pre>
+              <motion.div
+                className="cat-text"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                ~purr~
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

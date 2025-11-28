@@ -204,7 +204,14 @@
 }
 
 .easter-egg-cat {
-  margin: 2rem 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .easter-egg-cat pre {
@@ -213,6 +220,15 @@
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
+  margin: 0;
+}
+
+.cat-text {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  font-style: italic;
 }
 
 /* Custom Cursor */
