@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import MagneticText from '../components/MagneticText'
-import ScrambleText from '../components/ScrambleText'
 import InteractiveParticles from '../components/InteractiveParticles'
 
 function Home() {
@@ -49,9 +48,7 @@ function Home() {
               className="menu-item"
             >
               <MagneticText>
-                <ScrambleText>
-                  {menuItem.label}
-                </ScrambleText>
+                {menuItem.label}
               </MagneticText>
             </Link>
           </motion.div>

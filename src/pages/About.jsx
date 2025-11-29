@@ -6,15 +6,14 @@ function About() {
   const [clickCount, setClickCount] = useState(0)
   const [showClickCat, setShowClickCat] = useState(false)
   const [showHoverCat, setShowHoverCat] = useState(false)
-  const [showRai, setShowRai] = useState(false)
   const hoverTimeoutRef = useRef(null)
-  const raiTimeoutRef = useRef(null)
 
   const handleChaseClick = () => {
     const newCount = clickCount + 1
     setClickCount(newCount)
 
     if (newCount === 5) {
+      setShowHoverCat(false)
       setShowClickCat(true)
       setTimeout(() => {
         setShowClickCat(false)
@@ -25,6 +24,7 @@ function About() {
 
   const handleHoverStart = () => {
     hoverTimeoutRef.current = setTimeout(() => {
+      setShowClickCat(false)
       setShowHoverCat(true)
       setTimeout(() => {
         setShowHoverCat(false)
@@ -40,27 +40,17 @@ function About() {
 
   const handleAIClick = () => {
     // Simple click/tap handler - works on both desktop and mobile
+    setShowClickCat(false)
     setShowHoverCat(true)
     setTimeout(() => {
       setShowHoverCat(false)
     }, 5000)
   }
 
-  const handleRaiHoverStart = () => {
-    setShowRai(true)
-  }
-
-  const handleRaiHoverEnd = () => {
-    setShowRai(false)
-  }
-
   useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current)
-      }
-      if (raiTimeoutRef.current) {
-        clearTimeout(raiTimeoutRef.current)
       }
     }
   }, [])
@@ -89,32 +79,9 @@ function About() {
             I'm{' '}
             <span
               onClick={handleChaseClick}
-              onMouseEnter={handleRaiHoverStart}
-              onMouseLeave={handleRaiHoverEnd}
-              style={{ cursor: 'pointer', userSelect: 'none', position: 'relative' }}
+              style={{ cursor: 'pointer', userSelect: 'none' }}
             >
               Chase
-              <AnimatePresence>
-                {showRai && (
-                  <motion.span
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.2 }}
-                    style={{
-                      position: 'absolute',
-                      left: '50%',
-                      bottom: '100%',
-                      transform: 'translateX(-50%)',
-                      whiteSpace: 'nowrap',
-                      fontSize: '0.9em',
-                      marginBottom: '0.25em'
-                    }}
-                  >
-                    💕 rai
-                  </motion.span>
-                )}
-              </AnimatePresence>
             </span>
             {' '}and{' '}
             <span
