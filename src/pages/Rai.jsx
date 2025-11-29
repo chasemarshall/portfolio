@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom'
 function Rai() {
   return (
     <>
-      <Link to="/" className="back-button">
-        ← BACK
-      </Link>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Link to="/" className="back-button">
+          ← BACK
+        </Link>
+      </motion.div>
 
       <motion.div
         className="page-content"
