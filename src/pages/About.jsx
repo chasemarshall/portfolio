@@ -103,11 +103,12 @@ function About() {
                     transition={{ duration: 0.2 }}
                     style={{
                       position: 'absolute',
-                      left: '110%',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
+                      left: '50%',
+                      bottom: '100%',
+                      transform: 'translateX(-50%)',
                       whiteSpace: 'nowrap',
-                      fontSize: '0.9em'
+                      fontSize: '0.9em',
+                      marginBottom: '0.25em'
                     }}
                   >
                     💕 rai
