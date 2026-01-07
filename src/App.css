@@ -225,11 +225,22 @@
   padding: 2rem;
 }
 
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .lightbox-image {
-  max-width: 70vw;
-  max-height: 90vh;
+  max-width: 90vw;
+  max-height: 80vh;
   object-fit: contain;
   border-radius: 4px;
+}
+
+.lightbox-nav-container {
+  display: none;
 }
 
 .lightbox-nav {
@@ -394,5 +405,23 @@ a, button, .menu-item, .project-link, .contact-link {
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+
+  .lightbox-nav {
+    position: static;
+    transform: none;
+    font-size: 3rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .lightbox-nav-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .lightbox-image {
+    max-height: 70vh;
   }
 }

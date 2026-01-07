@@ -9,32 +9,38 @@ function Photography() {
     {
       id: 1,
       title: 'Photo 1',
-      src: '/photos/photo1.jpg'
+      thumb: '/photos/thumbs/photo1.jpg',
+      full: '/photos/photo1.jpg'
     },
     {
       id: 2,
       title: 'Photo 2',
-      src: '/photos/IMG_5490.jpeg'
+      thumb: '/photos/thumbs/IMG_5490.jpeg',
+      full: '/photos/IMG_5490.jpeg'
     },
     {
       id: 3,
       title: 'Photo 3',
-      src: '/photos/IMG_8824.jpeg'
+      thumb: '/photos/thumbs/IMG_8824.jpeg',
+      full: '/photos/IMG_8824.jpeg'
     },
     {
       id: 4,
       title: 'Photo 4',
-      src: '/photos/IMG_1165.jpeg'
+      thumb: '/photos/thumbs/IMG_1165.jpeg',
+      full: '/photos/IMG_1165.jpeg'
     },
     {
       id: 5,
       title: 'Photo 5',
-      src: '/photos/IMG_1193.jpeg'
+      thumb: '/photos/thumbs/IMG_1193.jpeg',
+      full: '/photos/IMG_1193.jpeg'
     },
     {
       id: 6,
       title: 'Photo 6',
-      src: '/photos/IMG_1435.jpg'
+      thumb: '/photos/thumbs/IMG_1435.jpg',
+      full: '/photos/IMG_1435.jpg'
     }
   ]
 
@@ -115,7 +121,7 @@ function Photography() {
                 }}
                 onClick={() => setSelectedIndex(index)}
               >
-                <img src={photo.src} alt={photo.title} className="photo-image" />
+                <img src={photo.thumb} alt={photo.title} className="photo-image" loading="lazy" />
               </motion.div>
             ))}
           </div>
@@ -132,22 +138,26 @@ function Photography() {
             transition={{ duration: 0.3 }}
             onClick={close}
           >
-            <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev() }}>
-              ‹
-            </button>
-            <motion.img
-              key={selectedPhoto.src}
-              src={selectedPhoto.src}
-              alt={selectedPhoto.title}
-              className="lightbox-image"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext() }}>
-              ›
-            </button>
+            <div className="lightbox-content">
+              <motion.img
+                key={selectedPhoto.full}
+                src={selectedPhoto.full}
+                alt={selectedPhoto.title}
+                className="lightbox-image"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className="lightbox-nav-container">
+                <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev() }}>
+                  ‹
+                </button>
+                <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext() }}>
+                  ›
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
