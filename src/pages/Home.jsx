@@ -7,6 +7,7 @@ function Home() {
   const menuItems = [
     { id: 'about', label: 'ABOUT', path: '/about' },
     { id: 'projects', label: 'PROJECTS', path: '/projects' },
+    { id: 'photos', label: 'PHOTOS', path: '/photos' },
     { id: 'contact', label: 'CONTACT', path: '/contact' }
   ]
 

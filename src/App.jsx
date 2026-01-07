@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Home from './pages/Home'
 import About from './pages/About'
 import Projects from './pages/Projects'
+import Photography from './pages/Photography'
 import Contact from './pages/Contact'
-import Rai from './pages/Rai'
 import NotFound from './pages/NotFound'
 import CursorOrb from './components/CursorOrb'
 import MobileRipple from './components/MobileRipple'
@@ -20,8 +22,8 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/photos" element={<Photography />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/rai" element={<Rai />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
@@ -37,6 +39,8 @@ function App() {
         <MobileRipple />
         <AnimatedRoutes />
       </div>
+      <Analytics />
+      <SpeedInsights />
     </Router>
   )
 }

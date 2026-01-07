@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom'
 function Projects() {
   return (
     <>
-      <Link to="/" className="back-button">
-        ← BACK
-      </Link>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Link to="/" className="back-button">
+          ← BACK
+        </Link>
+      </motion.div>
 
       <motion.div
         className="page-content"
@@ -44,7 +51,7 @@ function Projects() {
                 solace.
               </motion.a>
               <p className="project-description">
-                Modern Twitch streaming platform with enhanced chat and dual player modes
+                A modern Twitch frontend with enhanced chat and dual player modes.
               </p>
               <div className="project-tech">
                 <span className="tech-tag">Next.js 14</span>

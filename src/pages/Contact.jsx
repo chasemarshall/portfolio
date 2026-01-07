@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom'
 function Contact() {
   return (
     <>
-      <Link to="/" className="back-button">
-        ← BACK
-      </Link>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Link to="/" className="back-button">
+          ← BACK
+        </Link>
+      </motion.div>
 
       <motion.div
         className="page-content"
@@ -24,7 +31,7 @@ function Contact() {
           <h1 className="page-title">CONTACT</h1>
           <div className="page-text">
             <motion.a
-              href="mailto:chase@m.com"
+              href="mailto:hey@chasefrazier.dev"
               className="contact-link"
               whileHover={{
                 scale: 1.05,
@@ -32,7 +39,7 @@ function Contact() {
                 transition: { duration: 0.3 }
               }}
             >
-              chase@m.com
+              hey@chasefrazier.dev
             </motion.a>
           </div>
         </motion.div>
