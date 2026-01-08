@@ -325,12 +325,21 @@
 
 .social-link {
   color: rgba(255, 255, 255, 0.4);
-  transition: color 0.2s ease, filter 0.2s ease;
+  transition: color 0.2s ease;
+  display: flex;
+  text-decoration: none;
+}
+
+.social-link svg {
+  transition: filter 0.2s ease;
 }
 
 .social-link:hover {
   color: rgba(255, 255, 255, 1);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.social-link:hover svg {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
 
 .pixel-cat {
