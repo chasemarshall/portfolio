@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound'
 import CursorOrb from './components/CursorOrb'
 import MobileRipple from './components/MobileRipple'
 import CustomCursor from './components/CustomCursor'
+import InteractiveParticles from './components/InteractiveParticles'
 import './App.css'
 
 function AnimatedRoutes() {
@@ -37,6 +38,7 @@ function App() {
         <CustomCursor />
         <CursorOrb />
         <MobileRipple />
+        <InteractiveParticles />
         <AnimatedRoutes />
       </div>
       <Analytics />

@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import MagneticText from '../components/MagneticText'
-import InteractiveParticles from '../components/InteractiveParticles'
 
 function Home() {
   const menuItems = [
@@ -55,8 +54,6 @@ function Home() {
           </motion.div>
         ))}
       </motion.nav>
-
-      <InteractiveParticles />
     </>
   )
 }

@@ -8,7 +8,7 @@ function InteractiveParticles() {
 
   useEffect(() => {
     // Generate initial particles spread across entire screen
-    const initialParticles = [...Array(60)].map((_, i) => ({
+    const initialParticles = [...Array(25)].map((_, i) => ({
       id: i,
       initialX: Math.random() * window.innerWidth,
       initialY: Math.random() * window.innerHeight,
