@@ -34,6 +34,7 @@ function AnimatedRoutes() {
         <Route path="/photos" element={<Photography />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/solace" element={<ExternalRedirect to="https://github.com/chasemarshall/solace" />} />
+        <Route path="/portfolio" element={<ExternalRedirect to="https://github.com/chasemarshall/portfolio" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
