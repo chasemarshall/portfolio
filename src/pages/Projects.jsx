@@ -55,10 +55,10 @@ function Projects() {
                 A modern Twitch frontend with enhanced chat and dual player modes.
               </p>
               <div className="project-tech">
-                <span className="tech-tag">Next.js 14</span>
-                <span className="tech-tag">React 18</span>
-                <span className="tech-tag">TypeScript</span>
-                <span className="tech-tag">PostgreSQL</span>
+                <a href="/nextjs" target="_blank" rel="noopener noreferrer" className="tech-tag">Next.js 14</a>
+                <a href="/react" target="_blank" rel="noopener noreferrer" className="tech-tag">React 18</a>
+                <a href="/typescript" target="_blank" rel="noopener noreferrer" className="tech-tag">TypeScript</a>
+                <a href="/postgres" target="_blank" rel="noopener noreferrer" className="tech-tag">PostgreSQL</a>
               </div>
             </motion.div>
 
@@ -86,9 +86,9 @@ function Projects() {
                 This portfolio site. Minimal design with smooth animations.
               </p>
               <div className="project-tech">
-                <span className="tech-tag">React 19</span>
-                <span className="tech-tag">Vite</span>
-                <span className="tech-tag">Framer Motion</span>
+                <a href="/react" target="_blank" rel="noopener noreferrer" className="tech-tag">React 19</a>
+                <a href="/vite" target="_blank" rel="noopener noreferrer" className="tech-tag">Vite</a>
+                <a href="/framer" target="_blank" rel="noopener noreferrer" className="tech-tag">Framer Motion</a>
               </div>
             </motion.div>
           </div>

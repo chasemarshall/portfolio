@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    { "source": "/react", "destination": "https://react.dev", "permanent": false },
+    { "source": "/vite", "destination": "https://vitejs.dev", "permanent": false },
+    { "source": "/framer", "destination": "https://www.framer.com/motion", "permanent": false },
+    { "source": "/nextjs", "destination": "https://nextjs.org", "permanent": false },
+    { "source": "/typescript", "destination": "https://www.typescriptlang.org", "permanent": false },
+    { "source": "/postgres", "destination": "https://www.postgresql.org", "permanent": false }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
