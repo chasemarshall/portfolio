@@ -375,10 +375,7 @@ a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-i
     font-size: 3rem;
   }
 
-  .particle {
-    display: none;
-  }
-
+  
   .cursor-orb {
     display: none;
   }

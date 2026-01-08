@@ -47,9 +47,11 @@ function MobileRipple() {
           <motion.div
             key={ripple.id}
             className="touch-ripple"
+            style={{
+              left: ripple.x,
+              top: ripple.y
+            }}
             initial={{
-              x: ripple.x,
-              y: ripple.y,
               scale: 0,
               opacity: 0.6
             }}
