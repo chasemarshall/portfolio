@@ -9,7 +9,7 @@ export const sanity = createClient({
 
 export async function getProjects() {
   return sanity.fetch(`
-    *[_type == "project"] | order(name asc) {
+    *[_type == "project"] | order(order asc, name asc) {
       _id,
       name,
       description,
