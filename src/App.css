@@ -132,6 +132,17 @@
   margin-bottom: 1.5rem;
 }
 
+.asterisk-link {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  margin-left: 0.1rem;
+}
+
+.asterisk-link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
 /* Projects List */
 .projects-list {
   display: flex;

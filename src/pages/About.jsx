@@ -31,7 +31,13 @@ function About() {
           <h1 className="page-title">ABOUT</h1>
           <div className="page-text">
             <p>
-              i'm chase, i code with ai.
+              i'm chase, i code with ai. i also make websites
+              <a
+                href="https://biz.chasefrazier.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="asterisk-link"
+              >*</a>
             </p>
           </div>
         </motion.div>
