@@ -366,7 +366,7 @@ body.lightbox-open * {
   cursor: default !important;
 }
 
-a, button, .menu-item, .project-link, .contact-link {
+a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-item, .tech-tag, .lightbox-nav {
   cursor: none;
 }
 
