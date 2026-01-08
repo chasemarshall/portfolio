@@ -316,6 +316,23 @@
   display: inline-block;
 }
 
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.social-link {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease, filter 0.2s ease;
+}
+
+.social-link:hover {
+  color: rgba(255, 255, 255, 1);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
 .pixel-cat {
   margin: 2rem 0;
 }

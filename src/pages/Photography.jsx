@@ -1,48 +1,24 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
+import { getPhotos, urlFor } from '../lib/sanity'
 
 function Photography() {
+  const [photos, setPhotos] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selectedIndex, setSelectedIndex] = useState(null)
 
-  const photos = [
-    {
-      id: 1,
-      title: 'Photo 1',
-      thumb: '/photos/thumbs/photo1.jpg',
-      full: '/photos/photo1.jpg'
-    },
-    {
-      id: 2,
-      title: 'Photo 2',
-      thumb: '/photos/thumbs/IMG_5490.jpeg',
-      full: '/photos/IMG_5490.jpeg'
-    },
-    {
-      id: 3,
-      title: 'Photo 3',
-      thumb: '/photos/thumbs/IMG_8824.jpeg',
-      full: '/photos/IMG_8824.jpeg'
-    },
-    {
-      id: 4,
-      title: 'Photo 4',
-      thumb: '/photos/thumbs/IMG_1165.jpeg',
-      full: '/photos/IMG_1165.jpeg'
-    },
-    {
-      id: 5,
-      title: 'Photo 5',
-      thumb: '/photos/thumbs/IMG_1193.jpeg',
-      full: '/photos/IMG_1193.jpeg'
-    },
-    {
-      id: 6,
-      title: 'Photo 6',
-      thumb: '/photos/thumbs/IMG_1435.jpg',
-      full: '/photos/IMG_1435.jpg'
-    }
-  ]
+  useEffect(() => {
+    getPhotos()
+      .then((data) => {
+        setPhotos(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error('Failed to fetch photos:', err)
+        setLoading(false)
+      })
+  }, [])
 
   const selectedPhoto = selectedIndex !== null ? photos[selectedIndex] : null
 
@@ -118,22 +94,31 @@ function Photography() {
           <h1 className="page-title">PHOTOS</h1>
 
           <div className="photo-grid">
-            {photos.map((photo, index) => (
-              <motion.div
-                key={photo.id}
-                className="photo-item"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-                whileHover={{
-                  scale: 1.03,
-                  transition: { duration: 0.3 }
-                }}
-                onClick={() => setSelectedIndex(index)}
-              >
-                <img src={photo.thumb} alt={photo.title} className="photo-image" loading="lazy" />
-              </motion.div>
-            ))}
+            {loading ? (
+              <p style={{ color: 'rgba(255,255,255,0.5)' }}>Loading...</p>
+            ) : (
+              photos.map((photo, index) => (
+                <motion.div
+                  key={photo._id}
+                  className="photo-item"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+                  whileHover={{
+                    scale: 1.03,
+                    transition: { duration: 0.3 }
+                  }}
+                  onClick={() => setSelectedIndex(index)}
+                >
+                  <img
+                    src={urlFor(photo.image).width(400).url()}
+                    alt={photo.title || 'Photo'}
+                    className="photo-image"
+                    loading="lazy"
+                  />
+                </motion.div>
+              ))
+            )}
           </div>
         </motion.div>
       </motion.div>
@@ -150,9 +135,9 @@ function Photography() {
           >
             <div className="lightbox-content">
               <motion.img
-                key={selectedPhoto.full}
-                src={selectedPhoto.full}
-                alt={selectedPhoto.title}
+                key={selectedPhoto._id}
+                src={urlFor(selectedPhoto.image).width(1600).url()}
+                alt={selectedPhoto.title || 'Photo'}
                 className="lightbox-image"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
