@@ -95,7 +95,13 @@ function Photography() {
 
           <div className="photo-grid">
             {loading ? (
-              <p style={{ color: 'rgba(255,255,255,0.5)' }}>Loading...</p>
+              <div className="photo-loading">
+                <motion.div
+                  className="loading-spinner"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                />
+              </div>
             ) : (
               photos.map((photo, index) => (
                 <motion.div

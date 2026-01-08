@@ -327,19 +327,25 @@
   color: rgba(255, 255, 255, 0.4);
   transition: color 0.2s ease;
   display: flex;
-  text-decoration: none;
-}
-
-.social-link svg {
-  transition: filter 0.2s ease;
 }
 
 .social-link:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-.social-link:hover svg {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+.photo-loading {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
 }
 
 .pixel-cat {
