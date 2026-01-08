@@ -149,15 +149,12 @@
   align-items: center;
 }
 
-.project-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .github-link {
   color: rgba(255, 255, 255, 0.4);
   transition: color 0.2s ease;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .github-link:hover {
