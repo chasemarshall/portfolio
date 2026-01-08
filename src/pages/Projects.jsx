@@ -48,6 +48,7 @@ function Projects() {
                   transition: { duration: 0.3 }
                 }}
               >
+                <span className="highlight-strip" />
                 solace.
               </motion.a>
               <p className="project-description">
@@ -58,6 +59,36 @@ function Projects() {
                 <span className="tech-tag">React 18</span>
                 <span className="tech-tag">TypeScript</span>
                 <span className="tech-tag">PostgreSQL</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="project-item"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              <motion.a
+                href="https://chasefrazier.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-link"
+                whileHover={{
+                  scale: 1.05,
+                  textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5)",
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <span className="highlight-strip" />
+                chasefrazier.dev
+              </motion.a>
+              <p className="project-description">
+                This portfolio site. Minimal design with smooth animations.
+              </p>
+              <div className="project-tech">
+                <span className="tech-tag">React 19</span>
+                <span className="tech-tag">Vite</span>
+                <span className="tech-tag">Framer Motion</span>
               </div>
             </motion.div>
           </div>

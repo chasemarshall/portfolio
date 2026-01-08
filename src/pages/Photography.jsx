@@ -79,6 +79,16 @@ function Photography() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedIndex, goNext, goPrev, close])
 
+  // Hide cursor when lightbox is open
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      document.body.classList.add('lightbox-open')
+    } else {
+      document.body.classList.remove('lightbox-open')
+    }
+    return () => document.body.classList.remove('lightbox-open')
+  }, [selectedIndex])
+
   return (
     <>
       <motion.div
