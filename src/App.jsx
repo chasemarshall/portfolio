@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
@@ -14,6 +15,13 @@ import CustomCursor from './components/CustomCursor'
 import InteractiveParticles from './components/InteractiveParticles'
 import './App.css'
 
+function ExternalRedirect({ to }) {
+  useEffect(() => {
+    window.location.href = to
+  }, [to])
+  return null
+}
+
 function AnimatedRoutes() {
   const location = useLocation()
 
@@ -25,6 +33,7 @@ function AnimatedRoutes() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/photos" element={<Photography />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/solace" element={<ExternalRedirect to="https://github.com/chasemarshall/solace" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
