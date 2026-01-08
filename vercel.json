@@ -1,11 +1,11 @@
 {
   "redirects": [
-    { "source": "/react", "destination": "https://react.dev", "permanent": false },
-    { "source": "/vite", "destination": "https://vitejs.dev", "permanent": false },
-    { "source": "/framer", "destination": "https://www.framer.com/motion", "permanent": false },
-    { "source": "/nextjs", "destination": "https://nextjs.org", "permanent": false },
-    { "source": "/typescript", "destination": "https://www.typescriptlang.org", "permanent": false },
-    { "source": "/postgres", "destination": "https://www.postgresql.org", "permanent": false }
+    { "source": "/react", "destination": "/redirect.html?url=https://react.dev", "permanent": false },
+    { "source": "/vite", "destination": "/redirect.html?url=https://vitejs.dev", "permanent": false },
+    { "source": "/framer", "destination": "/redirect.html?url=https://www.framer.com/motion", "permanent": false },
+    { "source": "/nextjs", "destination": "/redirect.html?url=https://nextjs.org", "permanent": false },
+    { "source": "/typescript", "destination": "/redirect.html?url=https://www.typescriptlang.org", "permanent": false },
+    { "source": "/postgres", "destination": "/redirect.html?url=https://www.postgresql.org", "permanent": false }
   ],
   "rewrites": [
     {
