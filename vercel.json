@@ -7,7 +7,8 @@
     { "source": "/typescript", "destination": "/redirect.html?url=https://www.typescriptlang.org", "permanent": false },
     { "source": "/postgres", "destination": "/redirect.html?url=https://www.postgresql.org", "permanent": false },
     { "source": "/solace", "destination": "/redirect.html?url=https://github.com/chasemarshall/solace", "permanent": false },
-    { "source": "/portfolio", "destination": "/redirect.html?url=https://github.com/chasemarshall/portfolio", "permanent": false }
+    { "source": "/portfolio", "destination": "/redirect.html?url=https://github.com/chasemarshall/portfolio", "permanent": false },
+    { "source": "/coffee", "destination": "/redirect.html?url=https://github.com/chasemarshall/oak-ember-demo", "permanent": false }
   ],
   "rewrites": [
     {
