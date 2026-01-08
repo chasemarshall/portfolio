@@ -149,6 +149,21 @@
   align-items: center;
 }
 
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.github-link {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease;
+}
+
+.github-link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
 .project-link {
   font-size: 3rem;
   font-weight: 700;
