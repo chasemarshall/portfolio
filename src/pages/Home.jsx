@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import MagneticText from '../components/MagneticText'
@@ -7,6 +7,12 @@ function Home() {
   const [selection, setSelection] = useState(null)
   const [isSelecting, setIsSelecting] = useState(false)
   const [fadingBoxes, setFadingBoxes] = useState([])
+
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 25, stiffness: 200 }
+  const smoothX = useSpring(mouseX, springConfig)
+  const smoothY = useSpring(mouseY, springConfig)
 
   const menuItems = [
     { id: 'about', label: 'ABOUT', path: '/about' },
@@ -39,34 +45,37 @@ function Home() {
   }
 
   useEffect(() => {
-    const handleMouseDown = (e) => {
-      if (e.target.closest('a, button')) return
-      setIsSelecting(true)
-      setSelection({
-        startX: e.clientX,
-        startY: e.clientY,
-        endX: e.clientX,
-        endY: e.clientY
-      })
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
     }
 
-    const handleMouseMove = (e) => {
-      if (!isSelecting) return
-      setSelection(prev => ({
-        ...prev,
-        endX: e.clientX,
-        endY: e.clientY
-      }))
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
+
+  useEffect(() => {
+    const handleMouseDown = (e) => {
+      if (e.target.closest('a, button')) return
+      const x = smoothX.get()
+      const y = smoothY.get()
+      setIsSelecting(true)
+      setSelection({
+        startX: x,
+        startY: y
+      })
     }
 
     const handleMouseUp = () => {
       if (isSelecting && selection) {
+        const endX = smoothX.get()
+        const endY = smoothY.get()
         const box = {
           id: Date.now(),
-          x: Math.min(selection.startX, selection.endX),
-          y: Math.min(selection.startY, selection.endY),
-          width: Math.abs(selection.endX - selection.startX),
-          height: Math.abs(selection.endY - selection.startY)
+          x: Math.min(selection.startX, endX),
+          y: Math.min(selection.startY, endY),
+          width: Math.abs(endX - selection.startX),
+          height: Math.abs(endY - selection.startY)
         }
         if (box.width > 5 && box.height > 5) {
           setFadingBoxes(prev => [...prev, box])
@@ -80,27 +89,26 @@ function Home() {
     }
 
     window.addEventListener('mousedown', handleMouseDown)
-    window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('mouseup', handleMouseUp)
 
     return () => {
       window.removeEventListener('mousedown', handleMouseDown)
-      window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [isSelecting, selection])
+  }, [isSelecting, selection, smoothX, smoothY])
 
-  const getBoxStyle = (sel) => ({
-    position: 'fixed',
-    left: Math.min(sel.startX, sel.endX),
-    top: Math.min(sel.startY, sel.endY),
-    width: Math.abs(sel.endX - sel.startX),
-    height: Math.abs(sel.endY - sel.startY),
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    background: 'rgba(255, 255, 255, 0.05)',
-    pointerEvents: 'none',
-    zIndex: 50
-  })
+  const boxLeft = useTransform(smoothX, (x) =>
+    selection ? Math.min(selection.startX, x) : 0
+  )
+  const boxTop = useTransform(smoothY, (y) =>
+    selection ? Math.min(selection.startY, y) : 0
+  )
+  const boxWidth = useTransform(smoothX, (x) =>
+    selection ? Math.abs(x - selection.startX) : 0
+  )
+  const boxHeight = useTransform(smoothY, (y) =>
+    selection ? Math.abs(y - selection.startY) : 0
+  )
 
   return (
     <>
@@ -125,7 +133,19 @@ function Home() {
       </motion.nav>
 
       {isSelecting && selection && (
-        <div style={getBoxStyle(selection)} />
+        <motion.div
+          style={{
+            position: 'fixed',
+            left: boxLeft,
+            top: boxTop,
+            width: boxWidth,
+            height: boxHeight,
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            background: 'rgba(255, 255, 255, 0.05)',
+            pointerEvents: 'none',
+            zIndex: 50
+          }}
+        />
       )}
 
       <AnimatePresence>
