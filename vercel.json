@@ -8,7 +8,8 @@
     { "source": "/postgres", "destination": "/redirect.html?url=https://www.postgresql.org", "permanent": false },
     { "source": "/solace", "destination": "/redirect.html?url=https://github.com/chasemarshall/solace", "permanent": false },
     { "source": "/portfolio", "destination": "/redirect.html?url=https://github.com/chasemarshall/portfolio", "permanent": false },
-    { "source": "/coffee", "destination": "/redirect.html?url=https://github.com/chasemarshall/oak-ember-demo", "permanent": false }
+    { "source": "/coffee", "destination": "/redirect.html?url=https://coffee.chasefrazier.dev", "permanent": false },
+    { "source": "/coffee-gh", "destination": "/redirect.html?url=https://github.com/chasemarshall/ember-oak-demo", "permanent": false }
   ],
   "rewrites": [
     {
