@@ -102,6 +102,15 @@ function Photography() {
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
               </div>
+            ) : photos.length === 0 ? (
+              <motion.p
+                className="coming-soon-text"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                COMING SOON...
+              </motion.p>
             ) : (
               photos.map((photo, index) => (
                 <motion.div
