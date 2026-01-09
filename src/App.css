@@ -143,74 +143,7 @@
   color: rgba(255, 255, 255, 1);
 }
 
-/* Projects Carousel */
-.projects-carousel-page {
-  overflow: hidden;
-}
-
-.projects-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1000px;
-  min-height: 300px;
-  position: relative;
-}
-
-.carousel-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 250px;
-}
-
-.carousel-nav {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 4rem;
-  cursor: none;
-  padding: 1rem;
-  transition: color 0.2s ease;
-  flex-shrink: 0;
-}
-
-.carousel-nav:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-.carousel-indicators {
-  position: absolute;
-  bottom: -2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-}
-
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.3);
-  cursor: none;
-  padding: 0;
-  transition: background 0.2s ease;
-}
-
-.carousel-dot.active {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.carousel-dot:hover {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* Projects List (legacy, keeping for backwards compat) */
+/* Projects List */
 .projects-list {
   display: flex;
   flex-direction: column;
@@ -418,15 +351,6 @@
   padding: 3rem;
 }
 
-.coming-soon-text {
-  grid-column: 1 / -1;
-  font-size: 2rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  padding: 3rem;
-}
-
 .loading-spinner {
   width: 24px;
   height: 24px;
@@ -497,7 +421,7 @@ body.lightbox-open * {
   cursor: default !important;
 }
 
-a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-item, .tech-tag, .lightbox-nav, .carousel-nav, .carousel-dot {
+a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-item, .tech-tag, .lightbox-nav {
   cursor: none;
 }
 
@@ -553,21 +477,12 @@ a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-i
     cursor: auto;
   }
 
-  a, button, .menu-item, .project-link, .contact-link, .carousel-nav, .carousel-dot {
+  a, button, .menu-item, .project-link, .contact-link {
     cursor: pointer;
   }
 
   .custom-cursor-dot {
     display: none;
-  }
-
-  .carousel-nav {
-    font-size: 2.5rem;
-    padding: 0.5rem;
-  }
-
-  .projects-carousel {
-    gap: 0.5rem;
   }
 
   .photo-grid {

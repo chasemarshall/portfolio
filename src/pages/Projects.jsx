@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { getProjects } from '../lib/sanity'
 
 const TECH_LINKS = {
@@ -18,7 +18,6 @@ const TECH_LINKS = {
 function Projects() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     getProjects()
@@ -39,57 +38,6 @@ function Projects() {
       })
   }, [])
 
-  const goNext = useCallback(() => {
-    if (projects.length > 0) {
-      setCurrentIndex((prev) => (prev + 1) % projects.length)
-    }
-  }, [projects.length])
-
-  const goPrev = useCallback(() => {
-    if (projects.length > 0) {
-      setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
-    }
-  }, [projects.length])
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-        goNext()
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        goPrev()
-      }
-    }
-
-    const handleWheel = (e) => {
-      if (Math.abs(e.deltaY) > 30) {
-        if (e.deltaY > 0) {
-          goNext()
-        } else {
-          goPrev()
-        }
-      }
-    }
-
-    let debounceTimer
-    const debouncedWheel = (e) => {
-      if (!debounceTimer) {
-        handleWheel(e)
-        debounceTimer = setTimeout(() => {
-          debounceTimer = null
-        }, 300)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    window.addEventListener('wheel', debouncedWheel, { passive: true })
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      window.removeEventListener('wheel', debouncedWheel)
-    }
-  }, [goNext, goPrev])
-
-  const currentProject = projects[currentIndex]
-
   return (
     <>
       <motion.div
@@ -104,7 +52,7 @@ function Projects() {
       </motion.div>
 
       <motion.div
-        className="page-content projects-carousel-page"
+        className="page-content"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
@@ -118,88 +66,63 @@ function Projects() {
         >
           <h1 className="page-title">PROJECTS</h1>
 
-          <div className="projects-carousel">
+          <div className="projects-list">
             {loading ? (
               <p style={{ color: 'rgba(255,255,255,0.5)' }}>Loading...</p>
             ) : (
-              <>
-                <button className="carousel-nav carousel-prev" onClick={goPrev}>
-                  ‹
-                </button>
-
-                <div className="carousel-content">
-                  <AnimatePresence mode="wait">
-                    {currentProject && (
-                      <motion.div
-                        key={currentProject.id}
-                        className="project-item"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -50 }}
-                        transition={{ duration: 0.3 }}
+              projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  className="project-item"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
+                >
+                  <motion.a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link"
+                    whileHover={{
+                      scale: 1.05,
+                      textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5)",
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    <span className="highlight-strip" />
+                    {project.name}
+                  </motion.a>
+                  <p className="project-description">
+                    {project.description}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="github-link"
+                        title="View on GitHub"
                       >
-                        <motion.a
-                          href={currentProject.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="project-link"
-                          whileHover={{
-                            scale: 1.05,
-                            textShadow: "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5)",
-                            transition: { duration: 0.3 }
-                          }}
-                        >
-                          <span className="highlight-strip" />
-                          {currentProject.name}
-                        </motion.a>
-                        <p className="project-description">
-                          {currentProject.description}
-                          {currentProject.github && (
-                            <a
-                              href={currentProject.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="github-link"
-                              title="View on GitHub"
-                            >
-                              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                              </svg>
-                            </a>
-                          )}
-                        </p>
-                        <div className="project-tech">
-                          {currentProject.tech.map((tech) => (
-                            <a
-                              key={tech}
-                              href={TECH_LINKS[tech] || '#'}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="tech-tag"
-                            >
-                              {tech}
-                            </a>
-                          ))}
-                        </div>
-                      </motion.div>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                      </a>
                     )}
-                  </AnimatePresence>
-                </div>
-
-                <button className="carousel-nav carousel-next" onClick={goNext}>
-                  ›
-                </button>
-
-                <div className="carousel-indicators">
-                  {projects.map((_, index) => (
-                    <button
-                      key={index}
-                      className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-                      onClick={() => setCurrentIndex(index)}
-                    />
-                  ))}
-                </div>
-              </>
+                  </p>
+                  <div className="project-tech">
+                    {project.tech.map((tech) => (
+                      <a
+                        key={tech}
+                        href={TECH_LINKS[tech] || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="tech-tag"
+                      >
+                        {tech}
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              ))
             )}
           </div>
         </motion.div>
