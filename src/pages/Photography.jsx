@@ -116,6 +116,9 @@ function Photography() {
                 <motion.div
                   key={photo._id}
                   className="photo-item"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View ${photo.title || 'photo'} in lightbox`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
@@ -124,9 +127,16 @@ function Photography() {
                     transition: { duration: 0.3 }
                   }}
                   onClick={() => setSelectedIndex(index)}
+                  onKeyDown={(e) => e.key === 'Enter' && setSelectedIndex(index)}
                 >
                   <img
-                    src={urlFor(photo.image).width(400).url()}
+                    src={urlFor(photo.image).width(400).auto('format').url()}
+                    srcSet={`
+                      ${urlFor(photo.image).width(200).auto('format').url()} 200w,
+                      ${urlFor(photo.image).width(400).auto('format').url()} 400w,
+                      ${urlFor(photo.image).width(600).auto('format').url()} 600w
+                    `}
+                    sizes="(max-width: 768px) 50vw, 33vw"
                     alt={photo.title || 'Photo'}
                     className="photo-image"
                     loading="lazy"
@@ -151,7 +161,7 @@ function Photography() {
             <div className="lightbox-content">
               <motion.img
                 key={selectedPhoto._id}
-                src={urlFor(selectedPhoto.image).width(1600).url()}
+                src={urlFor(selectedPhoto.image).width(1600).auto('format').url()}
                 alt={selectedPhoto.title || 'Photo'}
                 className="lightbox-image"
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -160,10 +170,18 @@ function Photography() {
                 transition={{ duration: 0.3 }}
               />
               <div className="lightbox-nav-container">
-                <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev() }}>
+                <button
+                  className="lightbox-nav lightbox-prev"
+                  aria-label="Previous photo"
+                  onClick={(e) => { e.stopPropagation(); goPrev() }}
+                >
                   ‹
                 </button>
-                <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext() }}>
+                <button
+                  className="lightbox-nav lightbox-next"
+                  aria-label="Next photo"
+                  onClick={(e) => { e.stopPropagation(); goNext() }}
+                >
                   ›
                 </button>
               </div>

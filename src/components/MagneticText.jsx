@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef, memo } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
-function MagneticText({ children, className, ...props }) {
+const MagneticText = memo(function MagneticText({ children, className, ...props }) {
   const ref = useRef(null)
-  const [isHovered, setIsHovered] = useState(false)
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -28,7 +27,6 @@ function MagneticText({ children, className, ...props }) {
   }
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
     x.set(0)
     y.set(0)
   }
@@ -38,7 +36,6 @@ function MagneticText({ children, className, ...props }) {
       ref={ref}
       className={className}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       style={{
         x: xSpring,
@@ -50,6 +47,6 @@ function MagneticText({ children, className, ...props }) {
       {children}
     </motion.span>
   )
-}
+})
 
 export default MagneticText

@@ -1,33 +1,34 @@
-import { useState, useEffect } from 'react'
-import { motion, useMotionValue } from 'framer-motion'
+import { useState, memo } from 'react'
+import { motion } from 'framer-motion'
+import { useMobile } from '../hooks/useMobile'
 
-function InteractiveParticles() {
-  const [particles, setParticles] = useState([])
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+const PARTICLE_COUNT = 20
 
-  useEffect(() => {
-    // Generate initial particles spread across entire screen
-    const initialParticles = [...Array(25)].map((_, i) => ({
-      id: i,
-      initialX: Math.random() * window.innerWidth,
-      initialY: Math.random() * window.innerHeight,
-      size: Math.random() * 0.5 + 0.5
-    }))
-    setParticles(initialParticles)
+function generateParticles() {
+  return [...Array(PARTICLE_COUNT)].map((_, i) => ({
+    id: i,
+    initialX: Math.random() * window.innerWidth,
+    initialY: Math.random() * window.innerHeight,
+    targetX: Math.random() * window.innerWidth,
+    targetY: Math.random() * window.innerHeight,
+    size: Math.random() * 0.5 + 0.5,
+    duration: Math.random() * 20 + 15
+  }))
+}
 
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
+const InteractiveParticles = memo(function InteractiveParticles() {
+  const [particles] = useState(() => {
+    if (typeof window === 'undefined') return []
+    return generateParticles()
+  })
+  const isMobile = useMobile()
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
+  // Reduce particles on mobile for better performance
+  const visibleParticles = isMobile ? particles.slice(0, 10) : particles
 
   return (
     <>
-      {particles.map((particle) => (
+      {visibleParticles.map((particle) => (
         <motion.div
           key={particle.id}
           className="particle"
@@ -37,19 +38,20 @@ function InteractiveParticles() {
             scale: particle.size
           }}
           animate={{
-            y: [particle.initialY, Math.random() * window.innerHeight],
-            x: [particle.initialX, Math.random() * window.innerWidth],
+            y: [particle.initialY, particle.targetY],
+            x: [particle.initialX, particle.targetX],
           }}
           transition={{
-            duration: Math.random() * 20 + 10,
+            duration: particle.duration,
             repeat: Infinity,
             repeatType: "reverse",
             ease: "linear"
           }}
+          style={{ willChange: 'transform' }}
         />
       ))}
     </>
   )
-}
+})
 
 export default InteractiveParticles

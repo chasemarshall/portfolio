@@ -1,3 +1,42 @@
+:root {
+  /* Colors */
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-subtle: rgba(255, 255, 255, 0.5);
+  --color-text-faint: rgba(255, 255, 255, 0.4);
+  --color-border: rgba(255, 255, 255, 0.2);
+
+  /* Typography */
+  --font-size-hero: 5rem;
+  --font-size-title: 4rem;
+  --font-size-heading: 3rem;
+  --font-size-large: 2rem;
+  --font-size-base: 1.5rem;
+  --font-size-small: 1.2rem;
+  --font-size-xs: 0.9rem;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  /* Z-index scale */
+  --z-particles: 1;
+  --z-cursor-orb: 5;
+  --z-content: 10;
+  --z-selection: 50;
+  --z-nav: 100;
+  --z-modal: 1000;
+  --z-cursor: 9999;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -516,4 +555,65 @@ a, button, img, .menu-item, .project-link, .contact-link, .back-button, .photo-i
   .lightbox-image {
     max-height: 70vh;
   }
+}
+
+/* Focus styles for accessibility */
+a:focus-visible,
+button:focus-visible,
+.menu-item:focus-visible,
+.project-link:focus-visible,
+.contact-link:focus-visible,
+.back-button:focus-visible,
+.photo-item:focus-visible,
+.tech-tag:focus-visible,
+.lightbox-nav:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 4px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  z-index: calc(var(--z-cursor) + 1);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+/* Page loader for lazy loading */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg);
+}
+
+.page-loader .loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Error fallback */
+.error-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-lg);
+  text-align: center;
 }

@@ -1,37 +1,16 @@
-import { useEffect, useState } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { memo } from 'react'
+import { useSpring, motion } from 'framer-motion'
+import { useMouse } from '../hooks/useMouse'
+import { useMobile } from '../hooks/useMobile'
 
-function CursorOrb() {
-  const [isMobile, setIsMobile] = useState(false)
-  const cursorX = useMotionValue(-100)
-  const cursorY = useMotionValue(-100)
+const CursorOrb = memo(function CursorOrb() {
+  const isMobile = useMobile()
+  const { mouseX, mouseY } = useMouse()
 
-  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 }
-  const cursorXSpring = useSpring(cursorX, springConfig)
-  const cursorYSpring = useSpring(cursorY, springConfig)
-
-  useEffect(() => {
-    // Check if mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    const moveCursor = (e) => {
-      cursorX.set(e.clientX)
-      cursorY.set(e.clientY)
-    }
-
-    if (!isMobile) {
-      window.addEventListener('mousemove', moveCursor)
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', moveCursor)
-      window.removeEventListener('resize', checkMobile)
-    }
-  }, [cursorX, cursorY, isMobile])
+  // Orb uses slightly different spring config for smoother, slower follow
+  const orbSpringConfig = { damping: 25, stiffness: 150, mass: 0.5 }
+  const orbX = useSpring(mouseX, orbSpringConfig)
+  const orbY = useSpring(mouseY, orbSpringConfig)
 
   if (isMobile) return null
 
@@ -39,11 +18,11 @@ function CursorOrb() {
     <motion.div
       className="cursor-orb"
       style={{
-        left: cursorXSpring,
-        top: cursorYSpring,
+        left: orbX,
+        top: orbY,
       }}
     />
   )
-}
+})
 
 export default CursorOrb

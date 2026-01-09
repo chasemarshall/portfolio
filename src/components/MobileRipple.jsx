@@ -1,21 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useMobile } from '../hooks/useMobile'
 
-function MobileRipple() {
+const MobileRipple = memo(function MobileRipple() {
   const [ripples, setRipples] = useState([])
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useMobile()
 
   useEffect(() => {
-    // Check if mobile/touch device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
+    if (!isMobile) return
 
     const handleTouch = (e) => {
-      if (!isMobile) return
-
       const touch = e.touches[0]
       const newRipple = {
         id: Date.now() + Math.random(),
@@ -31,11 +25,7 @@ function MobileRipple() {
     }
 
     document.addEventListener('touchstart', handleTouch)
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouch)
-      window.removeEventListener('resize', checkMobile)
-    }
+    return () => document.removeEventListener('touchstart', handleTouch)
   }, [isMobile])
 
   if (!isMobile) return null
@@ -66,6 +56,6 @@ function MobileRipple() {
       </AnimatePresence>
     </div>
   )
-}
+})
 
 export default MobileRipple

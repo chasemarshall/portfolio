@@ -1,25 +1,38 @@
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useTransform, useSpring } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import MagneticText from '../components/MagneticText'
+import { useMouse } from '../hooks/useMouse'
+
+// Route prefetch map
+const routeImports = {
+  '/about': () => import('./About'),
+  '/projects': () => import('./Projects'),
+  '/photos': () => import('./Photography'),
+  '/contact': () => import('./Contact'),
+}
 
 function Home() {
   const [selection, setSelection] = useState(null)
   const [isSelecting, setIsSelecting] = useState(false)
   const [fadingBoxes, setFadingBoxes] = useState([])
+  const { mouseX, mouseY } = useMouse()
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
   const springConfig = { damping: 25, stiffness: 200 }
   const smoothX = useSpring(mouseX, springConfig)
   const smoothY = useSpring(mouseY, springConfig)
 
-  const menuItems = [
+  const menuItems = useMemo(() => [
     { id: 'about', label: 'ABOUT', path: '/about' },
     { id: 'projects', label: 'PROJECTS', path: '/projects' },
     { id: 'photos', label: 'PHOTOS', path: '/photos' },
     { id: 'contact', label: 'CONTACT', path: '/contact' }
-  ]
+  ], [])
+
+  // Prefetch route on hover
+  const prefetchRoute = useCallback((path) => {
+    routeImports[path]?.()
+  }, [])
 
   const container = {
     hidden: { opacity: 0 },
@@ -43,16 +56,6 @@ function Home() {
       }
     }
   }
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [mouseX, mouseY])
 
   useEffect(() => {
     const handleMouseDown = (e) => {
@@ -123,6 +126,8 @@ function Home() {
             <Link
               to={menuItem.path}
               className="menu-item"
+              onMouseEnter={() => prefetchRoute(menuItem.path)}
+              onFocus={() => prefetchRoute(menuItem.path)}
             >
               <MagneticText>
                 {menuItem.label}
