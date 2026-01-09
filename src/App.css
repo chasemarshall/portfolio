@@ -351,6 +351,15 @@
   padding: 3rem;
 }
 
+.coming-soon-text {
+  grid-column: 1 / -1;
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  padding: 3rem;
+}
+
 .loading-spinner {
   width: 24px;
   height: 24px;
